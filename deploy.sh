@@ -2,9 +2,9 @@
 
 BUILD=${1:-false}
 
-IMAGE_NAME=adcontent-front
-IMAGE_TAG=v1-front-2021
-CONTAINER_NAME=front
+IMAGE_NAME=pocdatatable
+IMAGE_TAG=2023
+CONTAINER_NAME=frontpoc
 
 if [[ "$BUILD" == "build" ]]
 then
@@ -12,9 +12,6 @@ then
     docker build -t "$IMAGE_NAME":"$IMAGE_TAG" .
 fi
 
-echo "Creando network local"
-docker network create adinfi
-
 echo "levantando servicio"
 docker rm -f "$CONTAINER_NAME"
-docker run -it --name "$CONTAINER_NAME" -p 80:80 -v "${PWD}/app:/app" --env-file vars.env --network adinfi "$IMAGE_NAME":"$IMAGE_TAG"
+docker run -it --name "$CONTAINER_NAME" -p 4200:4200 -v "${PWD}/app:/app" "$IMAGE_NAME":"$IMAGE_TAG"
