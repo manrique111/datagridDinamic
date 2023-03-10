@@ -8,10 +8,10 @@ CONTAINER_NAME=frontpoc
 
 if [[ "$BUILD" == "build" ]]
 then
-    echo "Compilando la imagen"
+    echo "Build image Docker"
     docker build -t "$IMAGE_NAME":"$IMAGE_TAG" .
 fi
 
-echo "levantando servicio"
+echo "start service"
 docker rm -f "$CONTAINER_NAME"
 docker run -it --name "$CONTAINER_NAME" -p 4200:4200 -v "${PWD}/app:/app" "$IMAGE_NAME":"$IMAGE_TAG"
